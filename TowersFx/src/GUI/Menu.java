@@ -69,15 +69,15 @@ public class Menu {
     private void startLevel(Stage stage){
         switch (level){
             case Easy:{
-                stage.setScene(easy.easyScene());
+                stage.setScene(easy.makeScene(Configs.getInstance().EASY_WIDTH,Configs.getInstance().EASY_HEIGHT));
                 break;
             }
             case Medium:{
-                stage.setScene(medium.mediumScene());
+                stage.setScene(medium.makeScene(Configs.getInstance().MEDIUM_WIDTH,Configs.getInstance().MEDIUM_HEIGHT));
                 break;
             }
             case Hard:{
-                stage.setScene(hard.hardScene());
+                stage.setScene(hard.makeScene(Configs.getInstance().HARD_WIDTH,Configs.getInstance().HARD_HEIGHT));
                 break;
             }
 
