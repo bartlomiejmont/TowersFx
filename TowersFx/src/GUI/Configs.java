@@ -7,13 +7,13 @@ public class Configs {
         return ourInstance;
     }
 
-    int TILE_SIZE = 80;
-    int EASY_HEIGHT = 4;
-    int MEDIUM_HEIGHT = 5;
-    int HARD_HEIGHT = 6;
-    int EASY_WIDTH = 5;
-    int MEDIUM_WIDTH = 6;
-    int HARD_WIDTH = 7;
+    public final int TILE_SIZE = 80;
+    public final int EASY_HEIGHT = 4;
+    public final int MEDIUM_HEIGHT = 5;
+    public final int HARD_HEIGHT = 6;
+    public final int EASY_WIDTH = 5;
+    public final int MEDIUM_WIDTH = 6;
+    public final int HARD_WIDTH = 7;
 
     private Configs() {
 

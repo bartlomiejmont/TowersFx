@@ -1,5 +1,7 @@
 package GUI;
 
+import LOGIC.MainLogic;
+import LOGIC.MapGenerator;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -14,9 +16,9 @@ public class Menu {
     private Scene scene;
     private StackPane stackPane = new StackPane();
     private VBox vBox = new VBox();
-    private Easy easy = new Easy();
-    private Medium medium = new Medium();
-    private Hard hard = new Hard();
+    private SceneGenerator sceneGenerator = new SceneGenerator();
+    private MapGenerator mapGenerator = new MapGenerator();
+    private MainLogic mainLogic = new MainLogic();
     private LEVEL level;
 
     public Scene menuScene(final Stage stage) {
@@ -69,15 +71,18 @@ public class Menu {
     private void startLevel(Stage stage){
         switch (level){
             case Easy:{
-                stage.setScene(easy.makeScene(Configs.getInstance().EASY_WIDTH,Configs.getInstance().EASY_HEIGHT));
+                mainLogic.setMap(mapGenerator.easyMap());
+                stage.setScene(sceneGenerator.makeScene(Configs.getInstance().EASY_WIDTH,Configs.getInstance().EASY_HEIGHT,mainLogic.getMap()));
                 break;
             }
             case Medium:{
-                stage.setScene(medium.makeScene(Configs.getInstance().MEDIUM_WIDTH,Configs.getInstance().MEDIUM_HEIGHT));
+                mapGenerator.generateMap(Configs.getInstance().MEDIUM_WIDTH,Configs.getInstance().MEDIUM_HEIGHT);
+                stage.setScene(sceneGenerator.makeScene(Configs.getInstance().MEDIUM_WIDTH,Configs.getInstance().MEDIUM_HEIGHT));
                 break;
             }
             case Hard:{
-                stage.setScene(hard.makeScene(Configs.getInstance().HARD_WIDTH,Configs.getInstance().HARD_HEIGHT));
+                mapGenerator.generateMap(Configs.getInstance().HARD_WIDTH,Configs.getInstance().HARD_HEIGHT);
+                stage.setScene(sceneGenerator.makeScene(Configs.getInstance().HARD_WIDTH,Configs.getInstance().HARD_HEIGHT));
                 break;
             }
 

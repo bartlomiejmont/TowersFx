@@ -9,4 +9,13 @@ public class MainLogic {
     private Tile lastTile;
     private Stack moves = new Stack();
 
+    private int[][] map;
+
+    public int[][] getMap() {
+        return map;
+    }
+
+    public void setMap(int[][] map) {
+        this.map = map;
+    }
 }
