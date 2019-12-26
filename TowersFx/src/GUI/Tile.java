@@ -21,10 +21,10 @@ public class Tile extends Rectangle {
 
     public void makeRed(){
         if(this.red && this.light){
-            this.setFill(Color.valueOf("#FF6D6D"));
+            this.setFill(Color.valueOf("FF0000"));
         }
         else if (this.red && !this.light){
-            this.setFill(Color.valueOf("#C20000"));
+            this.setFill(Color.valueOf("FF6666"));
         }
     }
 
@@ -59,24 +59,36 @@ public class Tile extends Rectangle {
 
         this.setOnMouseClicked(mouseEvent -> {
             if(!clicked){
-                if(light){
+                if(light && !red){
                     this.setFill(Color.BLUE);
                 }
-                else {
+                else if(!light && !red) {
                     this.setFill(Color.DARKBLUE);
                 }
+                else if(light && red){
+                    this.setFill(Color.valueOf("#FFB266"));
+                }
+                else {
+                    this.setFill(Color.valueOf("#FF8000"));
+                }
+
                 clicked = true;
             }
             else {
-                if(light){
+                if(light && !red){
                     this.setFill(Color.valueOf("#feb"));
                 }
-                else {
+                else if (!light && !red) {
                     this.setFill(Color.valueOf("#582"));
+                }
+                else if(light && red){
+                    this.setFill(Color.valueOf("#FF0000"));
+                }
+                else {
+                    this.setFill(Color.valueOf("#FF6666"));
                 }
                 clicked = false;
             }
-            makeRed();
         });
     }
 
