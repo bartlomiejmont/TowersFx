@@ -8,7 +8,6 @@ public class Tile extends Rectangle {
 
     private int tableX;
     private int tableY;
-    private boolean clicked = false;
     private boolean red = false;
     private boolean light;
     private TileLogic tileLogic = new TileLogic();
@@ -16,7 +15,7 @@ public class Tile extends Rectangle {
     public String tileInfo(){
         String info;
 
-        info = "tileX =" + this.getTableX() + " tileY =" + getTableY();
+        info = "[" + this.getTableX() + "," + getTableY()+"]";
         return info;
     }
 
@@ -70,39 +69,34 @@ public class Tile extends Rectangle {
 
         this.setOnMouseClicked(mouseEvent -> {
 
-            tileLogic.move(this);
-            tileLogic.printTile(this);
+            if(tileLogic.isMovePossible(this)) {
 
-            if(!clicked){
-                if(light && !red){
+                tileLogic.move(this);
+
+                if (light && !red) {
                     this.setFill(Color.BLUE);
-                }
-                else if(!light && !red) {
+                } else if (!light && !red) {
                     this.setFill(Color.DARKBLUE);
-                }
-                else if(light && red){
+                } else if (light && red) {
                     this.setFill(Color.valueOf("#FFB266"));
-                }
-                else {
+                } else {
                     this.setFill(Color.valueOf("#FF8000"));
                 }
 
-                clicked = true;
             }
-            else {
-                if(light && !red){
+            else if (tileLogic.isRevertPossible(this)){
+
+                tileLogic.move(this);
+
+                if (light && !red) {
                     this.setFill(Color.valueOf("#feb"));
-                }
-                else if (!light && !red) {
+                } else if (!light && !red) {
                     this.setFill(Color.valueOf("#582"));
-                }
-                else if(light && red){
+                } else if (light && red) {
                     this.setFill(Color.valueOf("#FF0000"));
-                }
-                else {
+                } else {
                     this.setFill(Color.valueOf("#FF6666"));
                 }
-                clicked = false;
             }
         });
     }

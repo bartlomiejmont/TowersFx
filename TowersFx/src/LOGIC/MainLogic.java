@@ -13,7 +13,7 @@ public final class MainLogic {
     private MainLogic(){}
 
     public static Tile lastTile;
-    public static Stack moves = new Stack();
+    public static Stack<Tile> moves = new Stack<Tile>();
 
     public static Tile[][] tileMap;
     public static int[][] map;
