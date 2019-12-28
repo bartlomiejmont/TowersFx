@@ -18,7 +18,6 @@ public class Menu {
     private VBox vBox = new VBox();
     private SceneGenerator sceneGenerator = new SceneGenerator();
     private MapGenerator mapGenerator = new MapGenerator();
-    private MainLogic mainLogic = new MainLogic();
     private LEVEL level;
 
     public Scene menuScene(final Stage stage) {
@@ -71,17 +70,20 @@ public class Menu {
     private void startLevel(Stage stage){
         switch (level){
             case Easy:{
-                mainLogic.setMap(mapGenerator.easyMap());
-                stage.setScene(sceneGenerator.makeScene(Configs.getInstance().EASY_WIDTH,Configs.getInstance().EASY_HEIGHT,mainLogic.getMap()));
+                MainLogic.map=mapGenerator.easyMap();
+                MainLogic.tileMap=mapGenerator.generateTileMap(Configs.getInstance().EASY_WIDTH,Configs.getInstance().EASY_HEIGHT);
+                stage.setScene(sceneGenerator.makeScene(Configs.getInstance().EASY_WIDTH,Configs.getInstance().EASY_HEIGHT));
                 break;
             }
             case Medium:{
-                mapGenerator.generateMap(Configs.getInstance().MEDIUM_WIDTH,Configs.getInstance().MEDIUM_HEIGHT);
+                MainLogic.map=mapGenerator.generateMap(Configs.getInstance().MEDIUM_WIDTH,Configs.getInstance().MEDIUM_HEIGHT);
+                MainLogic.tileMap=mapGenerator.generateTileMap(Configs.getInstance().MEDIUM_WIDTH,Configs.getInstance().MEDIUM_HEIGHT);
                 stage.setScene(sceneGenerator.makeScene(Configs.getInstance().MEDIUM_WIDTH,Configs.getInstance().MEDIUM_HEIGHT));
                 break;
             }
             case Hard:{
-                mapGenerator.generateMap(Configs.getInstance().HARD_WIDTH,Configs.getInstance().HARD_HEIGHT);
+                MainLogic.map=mapGenerator.generateMap(Configs.getInstance().HARD_WIDTH,Configs.getInstance().HARD_HEIGHT);
+                MainLogic.tileMap=mapGenerator.generateTileMap(Configs.getInstance().HARD_WIDTH,Configs.getInstance().HARD_HEIGHT);
                 stage.setScene(sceneGenerator.makeScene(Configs.getInstance().HARD_WIDTH,Configs.getInstance().HARD_HEIGHT));
                 break;
             }

@@ -1,5 +1,6 @@
 package GUI;
 
+import LOGIC.MainLogic;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 
@@ -9,16 +10,8 @@ public class SceneGenerator {
 
         Group tileGroup = new Group();
 
-        for(int y=0 ; y < height; y++){
-            for(int x=0; x < width; x++){
-                Tile tile = new Tile((x+y) % 2 == 0,x,y);
-                if(map[y][x] % 5 == 0){
-                    tile.setRed(true);
-                    tile.makeRed();
-                }
-                tileGroup.getChildren().add(tile);
-            }
-        }
+        tileGroup=MainLogic.getTileMap(width,height);
+
         return new Scene(tileGroup);
 
     }
@@ -27,12 +20,8 @@ public class SceneGenerator {
 
         Group tileGroup = new Group();
 
-        for(int y=0 ; y < height; y++){
-            for(int x=0; x < width; x++){
-                Tile tile = new Tile((x+y) % 2 == 0,x,y);
-                tileGroup.getChildren().add(tile);
-            }
-        }
+        tileGroup=MainLogic.getTileMap(width,height);
+
         return new Scene(tileGroup);
 
     }

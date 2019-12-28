@@ -1,5 +1,6 @@
 package GUI;
 
+import LOGIC.TileLogic;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -10,6 +11,14 @@ public class Tile extends Rectangle {
     private boolean clicked = false;
     private boolean red = false;
     private boolean light;
+    private TileLogic tileLogic = new TileLogic();
+
+    public String tileInfo(){
+        String info;
+
+        info = "tileX =" + this.getTableX() + " tileY =" + getTableY();
+        return info;
+    }
 
     public boolean isRed() {
         return red;
@@ -44,6 +53,8 @@ public class Tile extends Rectangle {
         this.tableY = tableY;
     }
 
+    public Tile(){ }
+
     public Tile (boolean light, int x, int y){
 
         this.tableX = x;
@@ -58,6 +69,10 @@ public class Tile extends Rectangle {
         setFill(light ? Color.valueOf("#feb") : Color.valueOf("#582"));
 
         this.setOnMouseClicked(mouseEvent -> {
+
+            tileLogic.move(this);
+            tileLogic.printTile(this);
+
             if(!clicked){
                 if(light && !red){
                     this.setFill(Color.BLUE);
