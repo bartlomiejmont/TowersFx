@@ -1,11 +1,14 @@
 package LOGIC;
 
 import GUI.Main;
+import GUI.SceneGenerator;
 import GUI.Tile;
 
 import java.util.Stack;
 
 public class TileLogic {
+
+    SceneGenerator sceneGenerator = new SceneGenerator();
 
     public void move(Tile tile){
 
@@ -16,7 +19,10 @@ public class TileLogic {
         else if(isRevertPossible(tile)){
             revertMove();
         }
-        System.out.println(MainLogic.fuel);
+
+        if(MainLogic.moves.size()==MainLogic.width*MainLogic.height){
+            sceneGenerator.gameOverScene();
+        }
     }
 
 

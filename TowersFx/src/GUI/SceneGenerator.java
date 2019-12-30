@@ -1,8 +1,11 @@
 package GUI;
 
 import LOGIC.MainLogic;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 
 public class SceneGenerator {
 
@@ -25,4 +28,18 @@ public class SceneGenerator {
         return new Scene(tileGroup);
 
     }
+
+    public void gameOverScene(){
+        // create a alert
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+
+        a.setTitle("GameOver");
+        a.setHeaderText(null);
+        a.setContentText("You win!");
+
+        // show the dialog
+        a.showAndWait();
+
+    }
+
 }
