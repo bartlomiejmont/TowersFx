@@ -10,32 +10,38 @@ public class TileLogic {
     public void move(Tile tile){
 
         if(isMovePossible(tile)){
-            MainLogic.moves.push(tile);
-            MainLogic.lastTile = tile;
+            makeMove(tile);
         }
 
         else if(isRevertPossible(tile)){
             revertMove();
         }
+        System.out.println(MainLogic.fuel);
     }
 
 
     public boolean isMovePossible(Tile tile){
 
-        if(MainLogic.lastTile==null){
+        if(MainLogic.lastTile==null&&!tile.isRed()){
             return true;
+        }
+        else if(MainLogic.lastTile==null){
+            return false;
         }
 
         if(MainLogic.moves.contains(tile)){
-            System.out.println("False");
+//            System.out.println("False");
             return false;
         }
-        else  if(allPassibleMoves().contains(tile)){
-            System.out.println("True");
+        else  if(allPassibleMoves().contains(tile)&&MainLogic.fuel>0){
+//            System.out.println("True");
+            if(tile.isRed()&&MainLogic.fuel!=1){
+                return false;
+            }
             return true;
         }
 
-        System.out.println("False");
+//        System.out.println("False");
         return false;
     }
 
@@ -59,9 +65,9 @@ public class TileLogic {
             possibleMoves.push(MainLogic.tileMap[MainLogic.lastTile.getTableX()-1][MainLogic.lastTile.getTableY()]);
         }
 
-        for(Tile t: possibleMoves){
-            System.out.println(t.tileInfo());
-        }
+//        for(Tile t: possibleMoves){
+//            System.out.println(t.tileInfo());
+//        }
 
         return possibleMoves;
     }
@@ -76,12 +82,30 @@ public class TileLogic {
 
     private void revertMove(){
         if(MainLogic.moves.size()>1){
+            if(MainLogic.lastTile.isRed()){
+                MainLogic.fuel=1;
+            }
+            else {
+                MainLogic.fuel++;
+            }
             MainLogic.moves.pop();
             MainLogic.lastTile = MainLogic.moves.lastElement();
         }
         else {
             MainLogic.moves.pop();
             MainLogic.lastTile = null;
+            MainLogic.fuel = 5;
+        }
+    }
+
+    private void makeMove(Tile tile){
+        MainLogic.moves.push(tile);
+        MainLogic.lastTile = tile;
+        if(tile.isRed()){
+            MainLogic.fuel=5;
+        }
+        else{
+            MainLogic.fuel--;
         }
     }
 }

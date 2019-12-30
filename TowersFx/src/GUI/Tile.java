@@ -1,5 +1,6 @@
 package GUI;
 
+import LOGIC.MainLogic;
 import LOGIC.TileLogic;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
