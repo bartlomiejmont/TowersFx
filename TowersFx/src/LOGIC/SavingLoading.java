@@ -1,12 +1,17 @@
 package LOGIC;
 
+import GUI.Tile;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 
 public class SavingLoading {
@@ -26,12 +31,28 @@ public class SavingLoading {
             {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 
+                List <Integer> map = new ArrayList<>();
+
+                for(int y=0 ; y < MainLogic.height; y++){
+                    for(int x=0; x < MainLogic.width; x++){
+                        map.add(MainLogic.map[x][y]);
+                    }
+                }
+
                 JSONArray list = new JSONArray();
+
+                JSONObject save = new JSONObject();
+
+                save.put("lastTile", MainLogic.lastTile);
+                save.put("moves", MainLogic.moves);
+                save.put("map",map);
+                MainLogic.moves = (Stack<Tile>) save.get("moves");
+//                System.out.println(MainLogic.moves);
 
                 list.add("Hello World");
 
                 try (FileWriter fileWriter = new FileWriter(file)) {
-                    fileWriter.write(list.toJSONString());
+                    fileWriter.write(save.toJSONString());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -58,8 +79,9 @@ public class SavingLoading {
             //Read JSON file
             Object obj = jsonParser.parse(reader);
 
-            JSONArray employeeList = (JSONArray) obj;
-            System.out.println(employeeList);
+            JSONObject employeeList = (JSONObject) obj;
+            System.out.println(MainLogic.moves);
+            //System.out.println(employeeList.get("moves"));
 
 
         } catch (IOException | ParseException e) {

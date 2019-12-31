@@ -1,6 +1,5 @@
 package GUI;
 
-import LOGIC.MainLogic;
 import LOGIC.TileLogic;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -13,11 +12,11 @@ public class Tile extends Rectangle {
     private boolean light;
     private TileLogic tileLogic = new TileLogic();
 
-    public String tileInfo(){
-        String info;
-
-        info = "[" + this.getTableX() + "," + getTableY()+"]";
-        return info;
+    @Override
+    public String toString() {
+        return "{\"tableX\":" + tableX +
+                ", \"tableY\":" + tableY +
+                '}';
     }
 
     public boolean isRed() {
@@ -58,6 +57,8 @@ public class Tile extends Rectangle {
     public Tile (boolean light, int x, int y){
 
         this.tableX = x;
+        this.setX(x);
+        this.setY(y);
         this.tableY = y;
         this.light = light;
 
