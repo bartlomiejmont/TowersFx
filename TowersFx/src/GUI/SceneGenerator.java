@@ -6,6 +6,10 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+
+import java.util.Optional;
 
 public class SceneGenerator {
 
@@ -40,6 +44,28 @@ public class SceneGenerator {
         // show the dialog
         a.showAndWait();
 
+    }
+
+    public void menuAlert(){
+        Alert a = new Alert(Alert.AlertType.NONE);
+
+        a.setTitle("Menu");
+        a.setHeaderText(null);
+        a.setContentText(null);
+        ButtonType buttonTypeOne = new ButtonType("Save Game");
+        ButtonType buttonTypeTwo = new ButtonType("Load Game");
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        a.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
+        Optional<ButtonType> result = a.showAndWait();
+        if (result.get() == buttonTypeOne){
+            System.out.println("Saving...");
+        } else if (result.get() == buttonTypeTwo) {
+            System.out.println("Loading...");
+        }
+        else {
+            // ... user chose CANCEL or closed the dialog
+        }
     }
 
 }
