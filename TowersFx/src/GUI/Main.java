@@ -1,14 +1,12 @@
 package GUI;
 
+import LOGIC.MainLogic;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-
-import java.util.EventListener;
 
 public class Main extends Application {
 
@@ -24,6 +22,8 @@ public class Main extends Application {
 
         stage.setScene(scene);
         stage.show();
+
+        MainLogic.primaryWindow = stage;
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override

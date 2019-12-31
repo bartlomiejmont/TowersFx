@@ -2,8 +2,8 @@ package LOGIC;
 
 import GUI.Tile;
 import javafx.scene.Group;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.stage.Window;
 
 import java.util.Stack;
 
@@ -21,6 +21,8 @@ public final class MainLogic {
     public static int width;
     public static int height;
     public static int fuel = 5;
+
+    public static Window primaryWindow ;
 
     public static Group getTileMap(int w, int h){
 

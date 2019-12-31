@@ -1,17 +1,19 @@
 package GUI;
 
 import LOGIC.MainLogic;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import LOGIC.SavingLoading;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.stage.FileChooser;
 
 import java.util.Optional;
 
 public class SceneGenerator {
+
+    SavingLoading savingLoading = new SavingLoading();
 
     public Scene makeScene(int width, int height, int[][]map){
 
@@ -56,15 +58,20 @@ public class SceneGenerator {
         ButtonType buttonTypeTwo = new ButtonType("Load Game");
         ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
+        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setInitialDirectory(new File("c:\\"));
+//        fileChooser.setInitialFileName("save.txt");
+//        fileChooser.getExtensionFilters().addAll(
+//                new FileChooser.ExtensionFilter("Text Files", "*.txt")
+//        );
+
         a.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
         Optional<ButtonType> result = a.showAndWait();
         if (result.get() == buttonTypeOne){
-            System.out.println("Saving...");
+//            System.out.println((Stage)MainLogic.primaryWindow);
+            savingLoading.saveGame();
         } else if (result.get() == buttonTypeTwo) {
-            System.out.println("Loading...");
-        }
-        else {
-            // ... user chose CANCEL or closed the dialog
+           savingLoading.loadGame();
         }
     }
 
