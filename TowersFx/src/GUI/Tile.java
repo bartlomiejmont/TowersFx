@@ -53,6 +53,12 @@ public class Tile extends Rectangle {
     }
 
     public Tile(){ }
+    public Tile(int y, int x){
+        this.tableX = x;
+        this.tableY = y;
+        this.setX(x);
+        this.setY(y);
+    }
 
     public Tile (boolean light, int x, int y){
 
