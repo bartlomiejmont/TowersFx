@@ -2,6 +2,9 @@ package LOGIC;
 
 import GUI.SceneGenerator;
 import GUI.Tile;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.json.simple.JSONArray;
@@ -42,7 +45,6 @@ public class SavingLoading {
                     }
                 }
 
-                JSONArray list = new JSONArray();
 
                 JSONObject save = new JSONObject();
 
@@ -51,12 +53,11 @@ public class SavingLoading {
                 save.put("map",map);
                 save.put("width", MainLogic.width);
                 save.put("height", MainLogic.height);
-                save.put("fuel", MainLogic.fuel);
+
 
 //                MainLogic.moves = (Stack<Tile>) save.get("moves");
 //                System.out.println(MainLogic.moves);
 
-                list.add("Hello World");
 
                 try (FileWriter fileWriter = new FileWriter(file)) {
                     fileWriter.write(save.toJSONString());
@@ -75,6 +76,8 @@ public class SavingLoading {
         SceneGenerator sceneGenerator = new SceneGenerator();
         MapGenerator mapGenerator = new MapGenerator();
         Stage stage = (Stage) MainLogic.primaryWindow;
+        MainLogic.lastTile = null;
+        MainLogic.moves.clear();
         FileChooser chooser = new FileChooser();
         chooser.setInitialDirectory(new File("c:\\"));
         File file = chooser.showOpenDialog(stage);
@@ -88,19 +91,19 @@ public class SavingLoading {
 
             JSONObject save = (JSONObject) obj;
 
+//            System.out.println(save.get("moves"));
+
             JSONObject lastTileJSON = (JSONObject) save.get("lastTile");
             JSONArray mapJSON = (JSONArray) save.get("map");
+            List<Object> moves = (List<Object>) save.get("moves");
+//            System.out.println(moves);
+
             Object widthObj = JSONValue.parse(save.get("width").toString());
             Object heightObj = JSONValue.parse(save.get("height").toString());
-            Object fuelObj = JSONValue.parse(save.get("fuel").toString());
 
-            Map lastTile =  lastTileJSON;
-
-            int y = (int)(long) lastTile.get("tableY");
-            int x = (int)(long) lastTile.get("tableX");
             MainLogic.width = (int)(long) widthObj;
             MainLogic.height = (int)(long) heightObj;
-            MainLogic.fuel =(int)(long) fuelObj;
+            MainLogic.fuel = 5;
 
             int mapIndex = 0;
             int map[][]= new int[MainLogic.width][MainLogic.height];
@@ -113,14 +116,30 @@ public class SavingLoading {
             }
             MainLogic.map = map;
 
-            MainLogic.lastTile = new Tile((x+y) % 2 == 0,y,x);
             MainLogic.tileMap = mapGenerator.generateTileMap(MainLogic.width,MainLogic.height);
 
             stage.setScene(sceneGenerator.makeScene(MainLogic.width,MainLogic.height));
-            MainLogic.getTileMap(MainLogic.width,MainLogic.height);
 
-            System.out.println(mapJSON);
-            System.out.println(MainLogic.lastTile);
+            for(int i=0; i<moves.size(); i++){
+                Map move = (Map) moves.get(i);
+                Tile tile = MainLogic.tileMap[(int)(long)move.get("tableX")][(int)(long)move.get("tableY")];
+                tile.tileClick();
+            }
+
+//            System.out.println(MainLogic.moves);
+//            System.out.println(MainLogic.lastTile);
+
+
+            stage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent keyEvent) {
+                    if(keyEvent.getCode() == KeyCode.ESCAPE){
+
+                        // show the dialog
+                        sceneGenerator.menuAlert();
+                    }
+                }
+            });
 
 
 

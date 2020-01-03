@@ -1,6 +1,5 @@
 package LOGIC;
 
-import GUI.Main;
 import GUI.SceneGenerator;
 import GUI.Tile;
 
@@ -29,25 +28,28 @@ public class TileLogic {
     public boolean isMovePossible(Tile tile){
 
         if(MainLogic.lastTile==null&&!tile.isRed()){
+//            System.out.println("first move");
             return true;
         }
         else if(MainLogic.lastTile==null){
             return false;
         }
 
+        System.out.println("tile: " + tile + " allPosibleMoves: " + allPassibleMoves() + " lastTile: " + MainLogic.lastTile + " contains: " + allPassibleMoves().contains(tile));
+
         if(MainLogic.moves.contains(tile)){
-//            System.out.println("False");
+//            System.out.println("Tile already visited");
             return false;
         }
         else  if(allPassibleMoves().contains(tile)&&MainLogic.fuel>0){
-//            System.out.println("True");
+//            System.out.println("Move is posible");
             if(tile.isRed()&&MainLogic.fuel!=1){
+                System.out.println("fuel != 1");
                 return false;
             }
+//            System.out.println("moving" + tile);
             return true;
         }
-
-//        System.out.println("False");
         return false;
     }
 
@@ -95,7 +97,7 @@ public class TileLogic {
                 MainLogic.fuel++;
             }
             MainLogic.moves.pop();
-            MainLogic.lastTile = MainLogic.moves.lastElement();
+            MainLogic.lastTile = (Tile) MainLogic.moves.lastElement();
         }
         else {
             MainLogic.moves.pop();
@@ -105,6 +107,7 @@ public class TileLogic {
     }
 
     private void makeMove(Tile tile){
+        System.out.println("JD");
         MainLogic.moves.push(tile);
         MainLogic.lastTile = tile;
         if(tile.isRed()){

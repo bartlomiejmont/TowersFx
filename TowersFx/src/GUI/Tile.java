@@ -60,7 +60,7 @@ public class Tile extends Rectangle {
         this.setY(y);
     }
 
-    public Tile (boolean light, int x, int y){
+    public Tile (boolean light, int x, int y) {
 
         this.tableX = x;
         this.setX(x);
@@ -71,12 +71,15 @@ public class Tile extends Rectangle {
         this.setWidth(Configs.getInstance().TILE_SIZE);
         this.setHeight(Configs.getInstance().TILE_SIZE);
 
-        relocate(x * Configs.getInstance().TILE_SIZE, y* Configs.getInstance().TILE_SIZE);
+        relocate(x * Configs.getInstance().TILE_SIZE, y * Configs.getInstance().TILE_SIZE);
 
         setFill(light ? Color.valueOf("#feb") : Color.valueOf("#582"));
 
         this.setOnMouseClicked(mouseEvent -> {
-
+            tileClick();
+        });
+    }
+        public void tileClick(){
             if(tileLogic.isMovePossible(this)) {
 
                 tileLogic.move(this);
@@ -106,7 +109,6 @@ public class Tile extends Rectangle {
                     this.setFill(Color.valueOf("#FF6666"));
                 }
             }
-        });
-    }
+        }
 
-}
+    }
