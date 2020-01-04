@@ -91,12 +91,10 @@ public class SavingLoading {
 
             JSONObject save = (JSONObject) obj;
 
-//            System.out.println(save.get("moves"));
 
             JSONObject lastTileJSON = (JSONObject) save.get("lastTile");
             JSONArray mapJSON = (JSONArray) save.get("map");
             List<Object> moves = (List<Object>) save.get("moves");
-//            System.out.println(moves);
 
             Object widthObj = JSONValue.parse(save.get("width").toString());
             Object heightObj = JSONValue.parse(save.get("height").toString());
@@ -125,9 +123,6 @@ public class SavingLoading {
                 Tile tile = MainLogic.tileMap[(int)(long)move.get("tableX")][(int)(long)move.get("tableY")];
                 tile.tileClick();
             }
-
-//            System.out.println(MainLogic.moves);
-//            System.out.println(MainLogic.lastTile);
 
 
             stage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {

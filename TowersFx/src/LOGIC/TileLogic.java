@@ -28,26 +28,20 @@ public class TileLogic {
     public boolean isMovePossible(Tile tile){
 
         if(MainLogic.lastTile==null&&!tile.isRed()){
-//            System.out.println("first move");
             return true;
         }
         else if(MainLogic.lastTile==null){
             return false;
         }
 
-        System.out.println("tile: " + tile + " allPosibleMoves: " + allPassibleMoves() + " lastTile: " + MainLogic.lastTile + " contains: " + allPassibleMoves().contains(tile));
 
         if(MainLogic.moves.contains(tile)){
-//            System.out.println("Tile already visited");
             return false;
         }
         else  if(allPassibleMoves().contains(tile)&&MainLogic.fuel>0){
-//            System.out.println("Move is posible");
             if(tile.isRed()&&MainLogic.fuel!=1){
-                System.out.println("fuel != 1");
                 return false;
             }
-//            System.out.println("moving" + tile);
             return true;
         }
         return false;
@@ -107,7 +101,6 @@ public class TileLogic {
     }
 
     private void makeMove(Tile tile){
-        System.out.println("JD");
         MainLogic.moves.push(tile);
         MainLogic.lastTile = tile;
         if(tile.isRed()){
