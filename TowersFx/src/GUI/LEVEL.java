@@ -2,7 +2,7 @@ package GUI;
 
 public enum LEVEL {
     Easy,
-    Medium,
-    Hard,
+    Create,
+    Load,
     Menu
 }

@@ -2,12 +2,13 @@ package GUI;
 
 import LOGIC.MainLogic;
 import LOGIC.MapGenerator;
+import LOGIC.SavingLoading;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -22,6 +23,7 @@ public class Menu {
     private SceneGenerator sceneGenerator = new SceneGenerator();
     private MapGenerator mapGenerator = new MapGenerator();
     private LEVEL level;
+    private SavingLoading savingLoading = new SavingLoading();
 
     public Scene menuScene(final Stage stage) {
 
@@ -30,36 +32,42 @@ public class Menu {
         final Button easyButton = new Button("Easy");
         easyButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
-                stage.setWidth(400);
-                stage.setHeight(340);
+                stage.setWidth(480);
+                stage.setHeight(420);
                 level=LEVEL.Easy;
                 startLevel(stage);
             }
         });
         vBox.getChildren().add(easyButton);
 
-        final Button mediumButton = new Button("Medium");
-        mediumButton.setOnAction(new EventHandler<ActionEvent>() {
+        ChoiceBox choiceWidth = new ChoiceBox();
+        ChoiceBox choiceHeight = new ChoiceBox();
+
+        vBox.getChildren().addAll(choiceWidth,choiceHeight);
+
+        final Button createButton = new Button("Create");
+        createButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
                 stage.setWidth(480);
                 stage.setHeight(420);
-                level=LEVEL.Medium;
+                level=LEVEL.Create;
                 startLevel(stage);
             }
         });
-        vBox.getChildren().add(mediumButton);
+        vBox.getChildren().add(createButton);
 
-        final Button hardButton = new Button("Hard");
-        hardButton.setOnAction(new EventHandler<ActionEvent>() {
+
+        final Button loadButton = new Button("Load");
+        loadButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
-                stage.setWidth(560);
-                stage.setHeight(500);
-                level=LEVEL.Hard;
+                stage.setWidth(480);
+                stage.setHeight(420);
+                level=LEVEL.Load;
                 startLevel(stage);
             }
         });
+        vBox.getChildren().add(loadButton);
 
-        vBox.getChildren().add(hardButton);
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(50);
         stackPane.getChildren().add(vBox);
@@ -78,17 +86,11 @@ public class Menu {
                 stage.setScene(sceneGenerator.makeScene(Configs.getInstance().EASY_WIDTH,Configs.getInstance().EASY_HEIGHT));
                 break;
             }
-            case Medium:{
-                MainLogic.map=mapGenerator.generateMap(Configs.getInstance().MEDIUM_WIDTH,Configs.getInstance().MEDIUM_HEIGHT);
-                MainLogic.tileMap=mapGenerator.generateTileMap(Configs.getInstance().MEDIUM_WIDTH,Configs.getInstance().MEDIUM_HEIGHT);
-                stage.setScene(sceneGenerator.makeScene(Configs.getInstance().MEDIUM_WIDTH,Configs.getInstance().MEDIUM_HEIGHT));
+            case Create:{
                 break;
             }
-            case Hard:{
-                MainLogic.map=mapGenerator.generateMap(Configs.getInstance().HARD_WIDTH,Configs.getInstance().HARD_HEIGHT);
-                MainLogic.tileMap=mapGenerator.generateTileMap(Configs.getInstance().HARD_WIDTH,Configs.getInstance().HARD_HEIGHT);
-                stage.setScene(sceneGenerator.makeScene(Configs.getInstance().HARD_WIDTH,Configs.getInstance().HARD_HEIGHT));
-                break;
+            case Load:{
+                savingLoading.loadGame();
             }
 
         }
