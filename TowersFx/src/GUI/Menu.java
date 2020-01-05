@@ -3,6 +3,7 @@ package GUI;
 import LOGIC.MainLogic;
 import LOGIC.MapGenerator;
 import LOGIC.SavingLoading;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -23,6 +24,8 @@ public class Menu {
     private SceneGenerator sceneGenerator = new SceneGenerator();
     private MapGenerator mapGenerator = new MapGenerator();
     private LEVEL level;
+    private int choiceWidthValue = 2;
+    private int choiceHeightValue = 2;
     private SavingLoading savingLoading = new SavingLoading();
 
     public Scene menuScene(final Stage stage) {
@@ -40,8 +43,28 @@ public class Menu {
         });
         vBox.getChildren().add(easyButton);
 
-        ChoiceBox choiceWidth = new ChoiceBox();
-        ChoiceBox choiceHeight = new ChoiceBox();
+        String[] choices = {"2","3","4","5","6","7","8","9"};
+
+        ChoiceBox<String> choiceWidth = new ChoiceBox<>(FXCollections.observableArrayList(choices));
+        choiceWidth.setValue(choices[0]);
+        ChoiceBox<String> choiceHeight = new ChoiceBox<>(FXCollections.observableArrayList(choices));
+        choiceHeight.setValue(choices[0]);
+
+        choiceWidth.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                choiceWidthValue = Integer.parseInt(choiceWidth.getValue());
+                MainLogic.width = choiceWidthValue;
+            }
+        });
+
+        choiceHeight.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                choiceHeightValue = Integer.parseInt(choiceHeight.getValue());
+                MainLogic.height = choiceHeightValue;
+            }
+        });
 
         vBox.getChildren().addAll(choiceWidth,choiceHeight);
 
@@ -79,6 +102,7 @@ public class Menu {
     }
 
     private void startLevel(Stage stage){
+
         switch (level){
             case Easy:{
                 MainLogic.map=mapGenerator.easyMap();
@@ -87,10 +111,15 @@ public class Menu {
                 break;
             }
             case Create:{
+                MainLogic.creatingMode = true;
+                MainLogic.map = mapGenerator.generateMap(choiceWidthValue,choiceHeightValue);
+                MainLogic.tileMap=mapGenerator.generateTileMap(choiceWidthValue,choiceHeightValue);
+                stage.setScene(sceneGenerator.makeScene(choiceWidthValue,choiceHeightValue));
                 break;
             }
             case Load:{
                 savingLoading.loadGame();
+                break;
             }
 
         }

@@ -20,5 +20,15 @@ public class TileTest {
         Assert.assertTrue(tile.isRed());
     }
 
+    @Test
+    public void tileVariablesX(){
+        Assert.assertNotNull(tile.getTableX());
+    }
+
+    @Test
+    public void tileVariablesY(){
+        Assert.assertNotNull(tile.getTableY());
+    }
+
 
 }

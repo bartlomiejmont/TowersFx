@@ -21,6 +21,9 @@ public final class MainLogic {
     public static int width;
     public static int height;
     public static int fuel = 5;
+    public static int tileNumber;
+
+    public static boolean creatingMode = false;
 
     public static Window primaryWindow ;
 

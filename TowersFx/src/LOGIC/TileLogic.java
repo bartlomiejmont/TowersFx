@@ -47,7 +47,7 @@ public class TileLogic {
         return false;
     }
 
-    private Stack<Tile> allPassibleMoves(){
+    public Stack<Tile> allPassibleMoves(){
 
         Stack<Tile> possibleMoves = new Stack<Tile>();
             // top

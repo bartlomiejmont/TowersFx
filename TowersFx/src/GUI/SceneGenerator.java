@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import javafx.stage.FileChooser;
 
 import java.util.Optional;
 
@@ -47,13 +46,6 @@ public class SceneGenerator {
         ButtonType buttonTypeOne = new ButtonType("Save Game");
         ButtonType buttonTypeTwo = new ButtonType("Load Game");
         ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setInitialDirectory(new File("c:\\"));
-//        fileChooser.setInitialFileName("save.txt");
-//        fileChooser.getExtensionFilters().addAll(
-//                new FileChooser.ExtensionFilter("Text Files", "*.txt")
-//        );
 
         a.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
         Optional<ButtonType> result = a.showAndWait();

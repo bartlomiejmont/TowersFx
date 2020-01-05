@@ -1,5 +1,7 @@
 package GUI;
 
+import LOGIC.CreateModeTileLogic;
+import LOGIC.MainLogic;
 import LOGIC.TileLogic;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -11,6 +13,7 @@ public class Tile extends Rectangle {
     private boolean red = false;
     private boolean light;
     private TileLogic tileLogic = new TileLogic();
+    private CreateModeTileLogic createModeTileLogic = new CreateModeTileLogic();
 
     @Override
     public String toString() {
@@ -80,7 +83,20 @@ public class Tile extends Rectangle {
         });
     }
         public void tileClick(){
-            if(tileLogic.isMovePossible(this)) {
+
+            if(createModeTileLogic.isMovePossible(this) && MainLogic.creatingMode){
+                createModeTileLogic.move(this);
+
+                if(light){
+                    this.setFill(Color.valueOf("#00cc99"));
+                }
+                else {
+                    this.setFill(Color.valueOf("#cc9900"));
+                }
+
+            }
+
+            else if(tileLogic.isMovePossible(this)) {
 
                 tileLogic.move(this);
 
